@@ -2,8 +2,11 @@
 import wx 
 import json
 import mainFrame  
+import win32clipboard as w
+import win32con
 
 class MainWindow(mainFrame.MainFrame): 
+	
 	def __init__(self,parent): 
 		mainFrame.MainFrame.__init__(self,parent)  
 		
@@ -40,7 +43,31 @@ class MainWindow(mainFrame.MainFrame):
 		
 		dst_data = self.format_data(src_data)
 		self.print_data(dst_data)
+			
+	def paste(self):
+		text_obj = wx.TextDataObject()
+		
+		if wx.TheClipboard.IsOpened or wx.TheClipboard.Open():
+			if wx.TheClipboard.GetData(text_obj):
+				self.m_src_data_tc.SetValue(text_obj.GetText())
+				wx.TheClipboard.Close()
 	
+	def copy(self):
+		text_obj = wx.TextDataObject()
+		text_obj.SetText(self.m_dst_data_tc.GetValue())
+		
+		if wx.TheClipboard.IsOpened() or wx.TheClipboard.Open():
+			wx.TheClipboard.SetData(text_obj)
+			wx.TheClipboard.Close()
+		
+	def m_paste_btnOnLeftDown( self, event ):
+		self.paste()
+		event.Skip()
+	
+	def m_copy_btnOnLeftDown( self, event ):
+		self.copy()
+		event.Skip()
+
 	def m_transfer_btnOnLeftDown( self, event ):
 		self.transfer()
 		event.Skip()

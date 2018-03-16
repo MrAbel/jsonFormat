@@ -70,7 +70,7 @@ class MainFrame ( wx.Frame ):
 		
 		# Connect Events
 		self.m_paste_btn.Bind( wx.EVT_LEFT_DOWN, self.m_paste_btnOnLeftDown )
-		self.m_copy_btn.Bind( wx.EVT_LEFT_DOWN, self.m_copy_btnOnLeftDown )
+		self.m_copy_btn.Bind( wx.EVT_MIDDLE_DOWN, self.m_copy_btnOnMiddleDown )
 		self.m_transfer_btn.Bind( wx.EVT_LEFT_DOWN, self.m_transfer_btnOnLeftDown )
 	
 	def __del__( self ):
@@ -81,7 +81,7 @@ class MainFrame ( wx.Frame ):
 	def m_paste_btnOnLeftDown( self, event ):
 		event.Skip()
 	
-	def m_copy_btnOnLeftDown( self, event ):
+	def m_copy_btnOnMiddleDown( self, event ):
 		event.Skip()
 	
 	def m_transfer_btnOnLeftDown( self, event ):
